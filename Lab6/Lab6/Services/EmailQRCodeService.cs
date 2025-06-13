@@ -3,19 +3,20 @@ using System.Drawing;
 
 namespace Lab6.Services
 {
-    public class EmailQRCodeService
-    {
-        public void GenerateEmailQRCode(string email, string subject, string filePath)
+        public class EmailQRCodeService : QRCodeGeneratorBase
         {
-            QRCodeGenerator qrGenerator = new QRCodeGenerator();
-            string emailString = $"mailto:{email}?subject={subject}";
-            QRCodeData qrCodeData = qrGenerator.CreateQrCode(emailString, QRCodeGenerator.ECCLevel.Q);
-            QRCode qrCode = new QRCode(qrCodeData);
+            private readonly string _email;
+            private readonly string _subject;
 
-            using (Bitmap bitmap = qrCode.GetGraphic(20))
+            public EmailQRCodeService(string email, string subject)
             {
-                bitmap.Save(filePath);
+                _email = email;
+                _subject = subject;
+            }
+
+            protected override string GeneratePayload()
+            {
+                return $"mailto:{_email}?subject={_subject}";
             }
         }
-    }
 }

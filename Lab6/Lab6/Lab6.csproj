@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
@@ -90,8 +90,10 @@
     <Compile Include="Services\ExportService.cs" />
     <Compile Include="Services\PlaceholderService.cs" />
     <Compile Include="Services\PrintService.cs" />
+    <Compile Include="Services\QRCodeGeneratorBase.cs" />
     <Compile Include="Services\QRCodeService.cs" />
     <Compile Include="Services\SettingsService.cs" />
+    <Compile Include="Services\TextQRCodeService.cs" />
     <Compile Include="Services\WiFiQRCodeService.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="Views\SettingsWindow.xaml.cs">

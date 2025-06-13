@@ -3,19 +3,20 @@ using System.Drawing;
 
 namespace Lab6.Services
 {
-    public class ContactQRCodeService
+    public class ContactQRCodeService : QRCodeGeneratorBase
     {
-        public void GenerateContactQRCode(string name, string phone, string filePath)
-        {
-            QRCodeGenerator qrGenerator = new QRCodeGenerator();
-            string contactString = $"MECARD:N:{name};TEL:{phone};;";
-            QRCodeData qrCodeData = qrGenerator.CreateQrCode(contactString, QRCodeGenerator.ECCLevel.Q);
-            QRCode qrCode = new QRCode(qrCodeData);
+        private readonly string _name;
+        private readonly string _phone;
 
-            using (Bitmap bitmap = qrCode.GetGraphic(20))
-            {
-                bitmap.Save(filePath);
-            }
+        public ContactQRCodeService(string name, string phone)
+        {
+            _name = name;
+            _phone = phone;
+        }
+
+        protected override string GeneratePayload()
+        {
+            return $"MECARD:N:{_name};TEL:{_phone};;";
         }
     }
 }

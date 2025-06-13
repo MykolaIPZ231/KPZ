@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 using System.Drawing.Printing;
 
 namespace Lab6.Services
@@ -7,22 +8,24 @@ namespace Lab6.Services
     {
         public void PrintQRCode(string filePath)
         {
-            PrintDocument printDoc = new PrintDocument();
-            printDoc.PrintPage += (sender, e) =>
+            using (PrintDocument printDoc = new PrintDocument())
             {
-                try
+                printDoc.PrintPage += (sender, e) =>
                 {
-                    using (var image = System.Drawing.Image.FromFile(filePath))
+                    try
                     {
-                        e.Graphics.DrawImage(image, 10, 10, 300, 300);
+                        using (var image = Image.FromFile(filePath))
+                        {
+                            e.Graphics.DrawImage(image, 10, 10, 300, 300);
+                        }
                     }
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine($"Error printing: {ex.Message}");
-                }
-            };
-            printDoc.Print();
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine($"Error printing: {ex.Message}");
+                    }
+                };
+                printDoc.Print();
+            }
         }
     }
 }
